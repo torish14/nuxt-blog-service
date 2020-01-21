@@ -1,3 +1,10 @@
+①Firebaseのセットアップ
+②ユーザーインターフェースの構築
+③ログイン機能の実装
+④投稿機能の実装
+⑤ユーザーページの実装
+⑥「いいね」機能の実装
+
 # nuxt-blog-service
 
 > My ace Nuxt.js project
