@@ -1,20 +1,19 @@
 <template>
-  <el-menu mode="horizontal" :router="true">
+  <el-menu :router="true" mode="horizontal">
     <el-menu-item index="1" style="pointer-events: none;">
       Nuxt Diary App
     </el-menu-item>
-    <el-menu-item index="2" :route="{ path: "/posts/>" }">
+    <el-menu-item :route="{ path: '/posts' }" index="2">
       投稿一覧
     </el-menu-item>
 
     <no-ssr>
-      <el-menu-item index="4" style="fload: right;" :route="{ path: "/" }">
+      <el-menu-item :route="{ path: '/' }" index="4" style="float: right;">
         <span>ログイン</span>
       </el-menu-item>
     </no-ssr>
-    <el-menu-item index="5" style="fload: right;" :route="{ path: "/posts/new" }">
+    <el-menu-item :route="{ path: '/posts/new' }" index="5" style="float: right;">
       新規登録
     </el-menu-item>
   </el-menu>
 </template>
-
