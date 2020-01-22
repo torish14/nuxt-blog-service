@@ -13,7 +13,7 @@ export const mutations = {
     state.posts.push(post)
   },
   updatePost (state, { post }) {
-    state.posts = state.posts.map((p) => (p.id === post.id ? post : p))
+    state.posts = state.posts.map(p => (p.id === post.id ? post : p))
   },
   clearPosts (state) {
     state.posts = []
@@ -23,12 +23,16 @@ export const mutations = {
 export const actions = {
   async publishPost ({ commit }, { payload }) {
     const user = await this.$axios.$get(`/users/${payload.user.id}.json`)
+    // eslint-disable-next-line
     const post_id = (await this.$axios.$post('/posts.json', payload)).name
+    // eslint-disable-next-line
     const created_at = moment().format()
     const post = { id: post_id, ...payload, created_at }
+    // eslint-disable-next-line
     delete putData.user
     await this.$axios.$put(`/users/${user.id}/posts.json`, [
       ...(user.posts || []),
+      // eslint-disable-next-line
       putData
     ])
     commit('addPost', { post })

@@ -23,6 +23,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
+    //! ...obj はスプレッド記法といい、式を複数の要素に展開して配列の値に渡す
     ...mapGetters(['user'])
   },
   asyncData ({ redirect, store }) {
@@ -37,9 +38,16 @@ export default {
     }
   },
   methods: {
-    publish () {
-
-    }
+    async publish () {
+      const payload = {
+        user: this.user,
+        ...this.formData
+      }
+      await this.publishPost({ payload })
+      this.$router.push('/posts')
+    },
+    ...mapActions('users', ['updateUser']),
+    ...mapGetters('posts', ['publishPost'])
   }
 }
 </script>
