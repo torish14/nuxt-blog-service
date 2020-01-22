@@ -54,6 +54,10 @@ export default {
     // APIサーバーの設定
     databaseURL: 'https://nuxt-blog-service-eaf55.firebaseio.com/'
   },
+  //! ミドルウェアの auth-cookie を読み込む
+  router: {
+    middleware: ['auth-cookie']
+  },
   /*
   ** Build configuration
   */
