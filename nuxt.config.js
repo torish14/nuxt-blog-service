@@ -51,6 +51,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    // APIサーバーの設定
+    databaseURL: "https://nuxt-blog-service-eaf55.firebaseio.com/"
   },
   /*
   ** Build configuration
