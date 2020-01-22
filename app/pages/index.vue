@@ -15,7 +15,7 @@
           </el-checkbox>
         </div>
         <div class="text-right">
-          <el-button type="primary" @click="handleClickSubmit">
+          <el-button @click="handleClickSubmit" type="primary">
             {{ buttonText }}
           </el-button>
         </div>
@@ -25,17 +25,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex"
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
-    button () {
+    buttonText () {
       return this.isCreateMode ? '新規登録' : 'ログイン'
     }
   },
   // asyncData は、コンポーネントがロードされる前に毎回呼び出される
   asyncData ({ redirect, store }) {
-    if(store.getters['user']) {
+    if (store.getters.user) {
       redirect('/posts/')
     }
     return {
@@ -45,29 +45,24 @@ export default {
       }
     }
   },
-  computed: {
-    buttonText() {
-      return this.isCreateMode ? "新規登録" : "ログイン"
-    }
-  },
   methods: {
-    async handleClickSubmit() {
+    async handleClickSubmit () {
       if (this.isCreateMode) {
         try {
           await this.resiter({ ...this.formData })
           this.$notify({
-            type: "success",
-            title: "アカウント作成完了",
+            type: 'success',
+            title: 'アカウント作成完了',
             message: `${this.formData.id} として登録しました`,
-            position: "bottom-right",
+            position: 'bottom-right',
             duration: 1100
           })
-          this.$router.push("/posts/")
-        } catch(e) {
+          this.$router.push('/posts/')
+        } catch (e) {
           this.$notify.error({
-            title: "アカウント作成失敗",
-            message: "すでに登録されているか、不正なユーザー ID です",
-            position: "bottom-right",
+            title: 'アカウント作成失敗',
+            message: 'すでに登録されているか、不正なユーザー ID です',
+            position: 'bottom-right',
             duration: 1100
           })
         }
@@ -75,24 +70,24 @@ export default {
         try {
           await this.login({ ...this.formData })
           this.$notify({
-            type: "success",
-            title: "ログイン成功",
+            type: 'success',
+            title: 'ログイン成功',
             message: `${this.formData.id} としてログインしました`,
-            positon: "bottom-right",
+            positon: 'bottom-right',
             duration: 1100
           })
-          this.$router.push("/posts/")
-        } catch(e) {
+          this.$router.push('/posts/')
+        } catch (e) {
           this.$notify.error({
-            title: "ログイン失敗",
-            mesage: "不正なユーザー iD です",
-            position: "bottom-right",
+            title: 'ログイン失敗',
+            mesage: '不正なユーザー iD です',
+            position: 'bottom-right',
             duration: 1100
           })
         }
       }
     },
-    ...mapActions(["login", "register"])
+    ...mapActions(['login', 'register'])
   }
 }
 </script>
