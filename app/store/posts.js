@@ -21,6 +21,21 @@ export const mutations = {
 }
 
 export const actions = {
+  // 投稿一覧ページの実装
+  async fetchPosts ({ commit }) {
+    const posts = await this.$axios.$get(`/posts.json`)
+    commit('clearPosts')
+    Object.entries(posts)
+      .reverse()
+      .forEach(([id, content]) =>
+        commit('addPost', {
+          post: {
+            id,
+            ...content
+          }
+        })
+      )
+  },
   async publishPost ({ commit }, { payload }) {
     const user = await this.$axios.$get(`/users/${payload.user.id}.json`)
     // eslint-disable-next-line
