@@ -25,6 +25,8 @@ export const actions = {
   async fetchPosts ({ commit }) {
     const posts = await this.$axios.$get(`/posts.json`)
     commit('clearPosts')
+    //! オブジェクトへループして投稿オブジェクト内に id キーを用意
+    //! Firebase の自動採番 ID を代入し、Vuex ストア二配列の一要素として追加
     Object.entries(posts)
       .reverse()
       .forEach(([id, content]) =>
