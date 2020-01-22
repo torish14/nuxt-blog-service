@@ -1,8 +1,4 @@
-/* 共通レイアウトの作成 */
-/* アプリ全体で利用する汎用CSSファイルを作成 */
-
 html {
-  font-family: "Hiragino Sans", sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -12,7 +8,7 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *after {
+*, *:before, *:after {
   box-sizing: border-box;
   margin: 0;
 }
@@ -38,6 +34,18 @@ html {
   align-items: flex-start;
 }
 
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-.text-center { text-align: center; }
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+p {
+  margin: 16px 0;
+}
