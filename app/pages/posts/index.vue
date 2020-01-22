@@ -15,29 +15,25 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import moment from '~/plugins/moment'
+
 export default {
   computed: {
     showPosts () {
-      return [
-        {
-          id: '001',
-          title: 'How to development Nuxt.js Application',
-          body: 'Hello World1',
-          created_at: '2020/01/22 13:00',
-          user: {
-            id: 'torish14'
-          }
-        },
-        {
-          id: '002',
-          title: 'Development Nuxt.js Application to Heroku',
-          body: 'Hello World2',
-          created_at: '2020/01/22 13:30',
-          user: {
-            id: 'torish14'
-          }
-        }
-      ]
+      return this.posts.map((post) => {
+        post.created_at = moment(post.created_at).format('YYYY/MM/DD HH:mm:ss')
+        return post
+      })
+    },
+    ...mapGetters('posts', ['posts'])
+  },
+  async asyncData ({ store }) {
+    await store.dispatch('posts/fetchPosts')
+  },
+  methods: {
+    handleClick (post) {
+      this.$router.push(`/posts/${post.id}`)
     }
   }
 }
