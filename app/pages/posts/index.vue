@@ -1,6 +1,7 @@
 <template>
   <section class="container posts-page">
     <el-card>
+      <!-- slot はテンプレートタグ内の文字列を slot タグへと入れ替える -->
       <div slot="header" class="clearfix">
         <span>新着投稿</span>
       </div>
