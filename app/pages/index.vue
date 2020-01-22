@@ -26,12 +26,15 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+// クッキーの追記
+import Cookies from 'universal-cookie'
 
 export default {
   computed: {
     buttonText () {
       return this.isCreateMode ? '新規登録' : 'ログイン'
-    }
+    },
+    ...mapGetters(['user'])
   },
   // asyncData は、コンポーネントがロードされる前に毎回呼び出される
   asyncData ({ redirect, store }) {
@@ -47,6 +50,8 @@ export default {
   },
   methods: {
     async handleClickSubmit () {
+      //! クッキーインスタンスの生成
+      const cookies = new Cookies()
       if (this.isCreateMode) {
         try {
           await this.resiter({ ...this.formData })
@@ -57,6 +62,8 @@ export default {
             position: 'bottom-right',
             duration: 1100
           })
+          //! JSON.stringifyメソッドは、JSON文字列に変換する
+          cookies.set('user', JSON.stringify(this.user))
           this.$router.push('/posts/')
         } catch (e) {
           this.$notify.error({
@@ -76,6 +83,8 @@ export default {
             positon: 'bottom-right',
             duration: 1100
           })
+          //! JSON.stringifyメソッドは、JSON文字列に変換する
+          cookies.set('user', JSON.stringify(this.user))
           this.$router.push('/posts/')
         } catch (e) {
           this.$notify.error({
