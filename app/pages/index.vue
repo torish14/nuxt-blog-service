@@ -2,7 +2,7 @@
   <section class="container">
     <el-card style="flex: 1">
       <div slot="header" class="clearfix">
-        <span>ログイン</span>
+        <span>ろぐいん</span>
       </div>
       <form>
         <div class="form-content">
