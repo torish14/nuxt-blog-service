@@ -1,7 +1,7 @@
 <template>
   <section class="container">
-    <el-card style="flex: 1;">
-      <div class="clearfix" sloy="header">
+    <el-card style="flex: 1">
+      <div slot="header" class="clearfix">
         <span>ログイン</span>
       </div>
       <form>
@@ -15,7 +15,7 @@
           </el-checkbox>
         </div>
         <div class="text-right">
-          <el-button @click="handleClickSubmit" type="primary">
+          <el-button type="primary" @click="handleClickSubmit">
             {{ buttonText }}
           </el-button>
         </div>
@@ -26,17 +26,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-// クッキーの追記
 import Cookies from 'universal-cookie'
-
 export default {
-  computed: {
-    buttonText () {
-      return this.isCreateMode ? '新規登録' : 'ログイン'
-    },
-    ...mapGetters(['user'])
-  },
-  // asyncData は、コンポーネントがロードされる前に毎回呼び出される
   asyncData ({ redirect, store }) {
     if (store.getters.user) {
       redirect('/posts/')
@@ -48,29 +39,33 @@ export default {
       }
     }
   },
+  computed: {
+    buttonText () {
+      return this.isCreateMode ? '新規登録' : 'ログイン'
+    },
+    ...mapGetters(['user'])
+  },
   methods: {
     async handleClickSubmit () {
-      //! クッキーインスタンスの生成
       const cookies = new Cookies()
       if (this.isCreateMode) {
         try {
-          await this.resiter({ ...this.formData })
+          await this.register({ ...this.formData })
           this.$notify({
             type: 'success',
             title: 'アカウント作成完了',
             message: `${this.formData.id} として登録しました`,
             position: 'bottom-right',
-            duration: 1100
+            duration: 1000
           })
-          //! JSON.stringifyメソッドは、JSON文字列に変換する
           cookies.set('user', JSON.stringify(this.user))
           this.$router.push('/posts/')
         } catch (e) {
           this.$notify.error({
             title: 'アカウント作成失敗',
-            message: 'すでに登録されているか、不正なユーザー ID です',
+            message: '既に登録されているか、不正なユーザー ID です',
             position: 'bottom-right',
-            duration: 1100
+            duration: 1000
           })
         }
       } else {
@@ -80,18 +75,17 @@ export default {
             type: 'success',
             title: 'ログイン成功',
             message: `${this.formData.id} としてログインしました`,
-            positon: 'bottom-right',
-            duration: 1100
+            position: 'bottom-right',
+            duration: 1000
           })
-          //! JSON.stringifyメソッドは、JSON文字列に変換する
           cookies.set('user', JSON.stringify(this.user))
           this.$router.push('/posts/')
         } catch (e) {
           this.$notify.error({
             title: 'ログイン失敗',
-            mesage: '不正なユーザー iD です',
+            message: '不正なユーザー ID です',
             position: 'bottom-right',
-            duration: 1100
+            duration: 1000
           })
         }
       }
@@ -101,7 +95,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .form-content {
   margin: 16px 0;
 }
