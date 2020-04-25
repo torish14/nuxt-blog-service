@@ -2,6 +2,6 @@
   <div>
     <p>sample</p>
     <p>feature</p>
-    <p>hello</p>
+    <p>helloworld</p>
   </div>
 </template>
